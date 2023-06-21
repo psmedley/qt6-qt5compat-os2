@@ -1,31 +1,6 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Copyright (C) 2016 Intel Corporation.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the test suite of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:GPL-EXCEPT$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 3 as published by the Free Software
-** Foundation with exceptions as appearing in the file LICENSE.GPL3-EXCEPT
-** included in the packaging of this file. Please review the following
-** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-3.0.html.
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2016 The Qt Company Ltd.
+// Copyright (C) 2016 Intel Corporation.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 
 #include <QtTest/QtTest>
 #include <qstringlist.h>
@@ -41,6 +16,7 @@ class tst_QStringRef : public QObject
 public slots:
     void cleanup();
 private slots:
+    void as_QString_arg_argument();
     void at();
     void endsWith();
     void startsWith();
@@ -167,6 +143,12 @@ static inline double nan()
 void tst_QStringRef::cleanup()
 {
     QLocale::setDefault(QLocale(QString(QLatin1Char('C'))));
+}
+
+void tst_QStringRef::as_QString_arg_argument()
+{
+    // QStringRef argument in multi-arg (QTBUG-109723):
+    QCOMPARE(QString("%1;%2").arg(QStringRef(), QString()), ";");
 }
 
 void tst_QStringRef::at()
@@ -401,7 +383,7 @@ void tst_QStringRef::indexOf2_data()
     QTest::newRow("data45") << whale << (whale + whale) << -1;
     QTest::newRow("data46") << (whale + whale) << (whale + whale) << 0;
     QTest::newRow("data47") << (whale + whale) << (whale + minnow) << -1;
-    QTest::newRow("data48") << (minnow + whale) << whale << (int)minnow.length();
+    QTest::newRow("data48") << (minnow + whale) << whale << (int)minnow.size();
 }
 
 void tst_QStringRef::indexOf2()
@@ -424,7 +406,7 @@ void tst_QStringRef::indexOf2()
     QCOMPARE(haystack.indexOf(needleRef, 0, Qt::CaseInsensitive), resultpos);
     QCOMPARE(haystackRef.indexOf(needle, 0, Qt::CaseInsensitive), resultpos);
     QCOMPARE(haystackRef.indexOf(needleRef, 0, Qt::CaseInsensitive), resultpos);
-    if (needle.length() > 0) {
+    if (needle.size() > 0) {
         got = haystackRef.lastIndexOf(needle, -1, Qt::CaseSensitive);
         QVERIFY(got == resultpos || (resultpos >= 0 && got >= resultpos));
         got = haystackRef.lastIndexOf(needle, -1, Qt::CaseInsensitive);
@@ -612,7 +594,7 @@ void tst_QStringRef::startsWith()
         QVERIFY(!ref.startsWith(QLatin1String("C")));
         QVERIFY(!ref.startsWith(QLatin1String("ABCDEF")));
         QVERIFY(ref.startsWith(QLatin1String("")));
-        QVERIFY(ref.startsWith(QLatin1String(0)));
+        QVERIFY(ref.startsWith(QLatin1String(nullptr)));
 
         QVERIFY(ref.startsWith("A", Qt::CaseSensitive));
         QVERIFY(ref.startsWith("A", Qt::CaseInsensitive));
@@ -647,7 +629,7 @@ void tst_QStringRef::startsWith()
         QVERIFY(!ref.startsWith(QLatin1String("c"), Qt::CaseInsensitive));
         QVERIFY(!ref.startsWith(QLatin1String("abcdef"), Qt::CaseInsensitive));
         QVERIFY(ref.startsWith(QLatin1String(""), Qt::CaseInsensitive));
-        QVERIFY(ref.startsWith(QLatin1String(0), Qt::CaseInsensitive));
+        QVERIFY(ref.startsWith(QLatin1String(nullptr), Qt::CaseInsensitive));
         QVERIFY(ref.startsWith('A', Qt::CaseSensitive));
         QVERIFY(ref.startsWith(QLatin1Char('A'), Qt::CaseSensitive));
         QVERIFY(ref.startsWith(QChar('A'), Qt::CaseSensitive));
@@ -663,7 +645,7 @@ void tst_QStringRef::startsWith()
         QVERIFY(!ref.startsWith("ABC"));
 
         QVERIFY(ref.startsWith(QLatin1String("")));
-        QVERIFY(ref.startsWith(QLatin1String(0)));
+        QVERIFY(ref.startsWith(QLatin1String(nullptr)));
         QVERIFY(!ref.startsWith(QLatin1String("ABC")));
 
         QVERIFY(!ref.startsWith(QLatin1Char(0)));
@@ -677,7 +659,7 @@ void tst_QStringRef::startsWith()
         QVERIFY(!ref.startsWith("ABC"));
 
         QVERIFY(!ref.startsWith(QLatin1String("")));
-        QVERIFY(ref.startsWith(QLatin1String(0)));
+        QVERIFY(ref.startsWith(QLatin1String(nullptr)));
         QVERIFY(!ref.startsWith(QLatin1String("ABC")));
 
         QVERIFY(!ref.startsWith(QLatin1Char(0)));
@@ -709,7 +691,7 @@ void tst_QStringRef::endsWith()
         QVERIFY(!ref.endsWith(QLatin1String("C")));
         QVERIFY(!ref.endsWith(QLatin1String("ABCDEF")));
         QVERIFY(ref.endsWith(QLatin1String("")));
-        QVERIFY(ref.endsWith(QLatin1String(0)));
+        QVERIFY(ref.endsWith(QLatin1String(nullptr)));
 
         QVERIFY(ref.endsWith("B", Qt::CaseSensitive));
         QVERIFY(ref.endsWith("B", Qt::CaseInsensitive));
@@ -744,7 +726,7 @@ void tst_QStringRef::endsWith()
         QVERIFY(!ref.endsWith(QLatin1String("c"), Qt::CaseInsensitive));
         QVERIFY(!ref.endsWith(QLatin1String("abcdef"), Qt::CaseInsensitive));
         QVERIFY(ref.endsWith(QLatin1String(""), Qt::CaseInsensitive));
-        QVERIFY(ref.endsWith(QLatin1String(0), Qt::CaseInsensitive));
+        QVERIFY(ref.endsWith(QLatin1String(nullptr), Qt::CaseInsensitive));
         QVERIFY(ref.endsWith('B', Qt::CaseSensitive));
         QVERIFY(ref.endsWith(QLatin1Char('B'), Qt::CaseSensitive));
         QVERIFY(ref.endsWith(QChar('B'), Qt::CaseSensitive));
@@ -764,7 +746,7 @@ void tst_QStringRef::endsWith()
         QVERIFY(!ref.endsWith(QChar()));
 
         QVERIFY(ref.endsWith(QLatin1String("")));
-        QVERIFY(ref.endsWith(QLatin1String(0)));
+        QVERIFY(ref.endsWith(QLatin1String(nullptr)));
         QVERIFY(!ref.endsWith(QLatin1String("ABC")));
     }
 
@@ -775,7 +757,7 @@ void tst_QStringRef::endsWith()
         QVERIFY(!ref.endsWith("ABC"));
 
         QVERIFY(!ref.endsWith(QLatin1String("")));
-        QVERIFY(ref.endsWith(QLatin1String(0)));
+        QVERIFY(ref.endsWith(QLatin1String(nullptr)));
         QVERIFY(!ref.endsWith(QLatin1String("ABC")));
 
         QVERIFY(!ref.endsWith(QLatin1Char(0)));
@@ -848,7 +830,7 @@ void tst_QStringRef::compare_data()
 
 static bool isLatin(const QString &s)
 {
-    for (int i = 0; i < s.length(); ++i)
+    for (int i = 0; i < s.size(); ++i)
         if (s.at(i).unicode() > 0xff)
             return false;
     return true;
@@ -861,8 +843,8 @@ void tst_QStringRef::compare()
     QFETCH(int, csr);
     QFETCH(int, cir);
 
-    QStringRef r1(&s1, 0, s1.length());
-    QStringRef r2(&s2, 0, s2.length());
+    QStringRef r1(&s1, 0, s1.size());
+    QStringRef r2(&s2, 0, s2.size());
 
     QCOMPARE(sign(QString::compare(s1, s2)), csr);
     QCOMPARE(sign(QStringRef::compare(r1, r2)), csr);
@@ -918,8 +900,8 @@ void tst_QStringRef::compare2()
     s1.prepend("xyz").append("zyx");
     s2.prepend("foobar").append("raboof");
 
-    QStringRef r1(&s1, 3, s1.length() - 6);
-    QStringRef r2(&s2, 6, s2.length() - 12);
+    QStringRef r1(&s1, 3, s1.size() - 6);
+    QStringRef r2(&s2, 6, s2.size() - 12);
 
     QCOMPARE(sign(QStringRef::compare(r1, r2)), csr);
     QCOMPARE(sign(r1.compare(r2)), csr);
