@@ -43,6 +43,7 @@ qt_internal_add_qml_module(qtgraphicaleffectsplugin
     LIBRARIES
         Qt::Qml
         Qt::Quick
+    OS2_SHORT_NAME GraphEff
 )
 
 # Resources:
