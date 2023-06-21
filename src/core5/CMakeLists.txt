@@ -1,3 +1,6 @@
+# Copyright (C) 2022 The Qt Company Ltd.
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Generated from core5.pro.
 
 #####################################################################
@@ -6,6 +9,7 @@
 
 qt_internal_add_module(Core5Compat
     SOURCES
+        codecs/qcodecmacros_p.h
         codecs/qtextcodec_p.h
         codecs/qutfcodec.cpp codecs/qutfcodec_p.h
         qcore5global.h
@@ -62,7 +66,7 @@ qt_internal_extend_target(Core5Compat CONDITION QT_FEATURE_big_codecs AND QT_FEA
         codecs/qeuckrcodec.cpp codecs/qeuckrcodec_p.h
         codecs/qgb18030codec.cpp codecs/qgb18030codec_p.h
         codecs/qjiscodec.cpp codecs/qjiscodec_p.h
-        codecs/qjpunicode.cpp
+        codecs/qjpunicode.cpp codecs/qjpunicode_p.h
         codecs/qsjiscodec.cpp codecs/qsjiscodec_p.h
 )
 

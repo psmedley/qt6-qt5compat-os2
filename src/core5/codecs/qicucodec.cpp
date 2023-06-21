@@ -1,41 +1,5 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the QtCore module of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:LGPL$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 3 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL3 included in the
-** packaging of this file. Please review the following information to
-** ensure the GNU Lesser General Public License version 3 requirements
-** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 2.0 or (at your option) the GNU General
-** Public license version 3 or any later version approved by the KDE Free
-** Qt Foundation. The licenses are as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
-** included in the packaging of this file. Please review the following
-** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-2.0.html and
-** https://www.gnu.org/licenses/gpl-3.0.html.
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2016 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 
 #include "qicucodec_p.h"
 
@@ -57,7 +21,7 @@ QT_BEGIN_NAMESPACE
 typedef QList<QTextCodec*>::ConstIterator TextCodecListConstIt;
 typedef QList<QByteArray>::ConstIterator ByteArrayListConstIt;
 
-static void qIcuCodecStateFree(QTextCodec::ConverterState *state)
+static void qIcuCodecStateFree(QTextCodec::ConverterState *state) noexcept
 {
     ucnv_close(static_cast<UConverter *>(state->d[0]));
 }
@@ -637,7 +601,7 @@ QString QIcuCodec::convertToUnicode(const char *chars, int length, QTextCodec::C
     int convertedChars = 0;
     while (1) {
         UChar *uc = (UChar *)string.data();
-        UChar *ucEnd = uc + string.length();
+        UChar *ucEnd = uc + string.size();
         uc += convertedChars;
         UErrorCode error = U_ZERO_ERROR;
         ucnv_toUnicode(conv,
@@ -655,7 +619,7 @@ QString QIcuCodec::convertToUnicode(const char *chars, int length, QTextCodec::C
         convertedChars = uc - (UChar *)string.data();
         if (chars >= end)
             break;
-        string.resize(string.length()*2);
+        string.resize(string.size()*2);
     }
     string.resize(convertedChars);
 
@@ -677,7 +641,7 @@ QByteArray QIcuCodec::convertFromUnicode(const QChar *unicode, int length, QText
     int convertedChars = 0;
     while (1) {
         char *ch = (char *)string.data();
-        char *chEnd = ch + string.length();
+        char *chEnd = ch + string.size();
         ch += convertedChars;
         UErrorCode error = U_ZERO_ERROR;
         ucnv_fromUnicode(conv,
@@ -693,7 +657,7 @@ QByteArray QIcuCodec::convertFromUnicode(const QChar *unicode, int length, QText
         convertedChars = ch - string.data();
         if (uc >= end)
             break;
-        string.resize(string.length()*2);
+        string.resize(string.size()*2);
     }
     string.resize(convertedChars);
 

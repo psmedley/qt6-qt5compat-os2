@@ -1,29 +1,5 @@
-/****************************************************************************
-**
-** Copyright (C) 2020 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the documentation of the Qt Graphical Effects module.
-**
-** $QT_BEGIN_LICENSE:FDL$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU Free Documentation License Usage
-** Alternatively, this file may be used under the terms of the GNU Free
-** Documentation License version 1.3 as published by the Free Software
-** Foundation and appearing in the file included in the packaging of
-** this file. Please review the following information to ensure
-** the GNU Free Documentation License version 1.3 requirements
-** will be met: https://www.gnu.org/licenses/fdl-1.3.html.
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2020 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GFDL-1.3-no-invariants-only
 
     /*!
     \page graphicaleffects5.html
@@ -31,19 +7,18 @@
     \brief Effects provided by the Qt Graphical Effects API
 
     The Qt Graphical Effects module is provided for compatibility with
-    applications written for Qt 5. As far as practically feasible, effects
-    have been ported, but some dynamically generated effects are incompatible with
-    the approach to shader effects in Qt 6 and have thus been left out:
+    applications written for Qt 5.
 
-    \list
-    \li Blend
-    \li InnerShadow
-    \li All blur effects besides FastBlur: GaussianBlur, MaskedBlur, RecursiveBlur,
-    DirectionalBlur, RadialBlur, ZoomBlur.
-    \endlist
+    \note Since the Qt Graphical Effects module has performance constraints
+    when effects are stacked, it is primarily included for compatibility with
+    Qt 5 applications. We recommend that new code is written with one of the
+    new solutions for effects that were introduced in Qt 6. For typical UI
+    effects, Qt Quick has the \l{MultiEffect}, which applies multiple effects
+    in one pass. For advanced use cases which are not covered by this
+    component, the Qt Quick Effect Maker tool can be used to customize and
+    fine-tune exactly the shader effects you need.
 
-    Dependencies on any of these types have to be replaced by a custom shader effect
-    in the application code.
+    \section1 Using Qt Graphical Effects
 
     Effects are visual items that can be added to Qt Quick user interface as UI
     components. To import the Qt Graphical Effects types, include the Qt
@@ -59,7 +34,10 @@
     is a simple way to create even more impressive output.
 
     The following list presents the functional division of types that are part
-    of Qt Graphical Effects:
+    of Qt Graphical Effects.
+
+    \section1 Blend
+    \annotatedlist qtgraphicaleffects-blend
 
     \section1 Color
         \annotatedlist qtgraphicaleffects-color
@@ -75,6 +53,9 @@
 
     \section1 Blur
         \annotatedlist qtgraphicaleffects-blur
+
+    \section1 Motion Blur
+        \annotatedlist qtgraphicaleffects-motion-blur
 
     \section1 Glow
         \annotatedlist qtgraphicaleffects-glow

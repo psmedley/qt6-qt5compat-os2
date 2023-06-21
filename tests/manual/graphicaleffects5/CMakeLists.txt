@@ -1,3 +1,6 @@
+# Copyright (C) 2022 The Qt Company Ltd.
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Generated from graphicaleffects.pro.
 
 #####################################################################
@@ -8,7 +11,7 @@ qt_internal_add_manual_test(graphicaleffects
     GUI
     SOURCES
         main.cpp
-    PUBLIC_LIBRARIES
+    LIBRARIES
         Qt::Gui
         Qt::Quick
 )
@@ -31,23 +34,32 @@ set(qml_resource_files
     "../../../src/imports/graphicaleffects5/doc/images/butterfly.png"
     "../../../src/imports/graphicaleffects5/doc/images/fog.png"
     "../../../src/imports/graphicaleffects5/doc/images/glass_normal.png"
+    "BlendEffect.qml"
     "BrightnessContrastEffect.qml"
     "ColorOverlayEffect.qml"
     "ColorizeEffect.qml"
     "ConicalGradientEffect.qml"
     "DesaturateEffect.qml"
+    "DirectionalBlurEffect.qml"
     "DisplaceEffect.qml"
     "DropShadowEffect.qml"
     "FastBlurEffect.qml"
     "GammaAdjustEffect.qml"
+    "GaussianBlurEffect.qml"
     "GlowEffect.qml"
     "HueSaturationEffect.qml"
+    "InnerShadowEffect.qml"
+    "InnerShadowFastEffect.qml"
     "LevelAdjustEffect.qml"
     "LinearGradientEffect.qml"
+    "MaskedBlurEffect.qml"
     "OpacityMaskEffect.qml"
+    "RadialBlurEffect.qml"
     "RadialGradientEffect.qml"
     "RectangularGlowEffect.qml"
+    "RecursiveBlurEffect.qml"
     "ThresholdMaskEffect.qml"
+    "ZoomBlurEffect.qml"
     "main.qml"
 )
 

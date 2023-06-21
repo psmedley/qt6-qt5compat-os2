@@ -1,31 +1,5 @@
-
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the test suite of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:GPL-EXCEPT$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 3 as published by the Free Software
-** Foundation with exceptions as appearing in the file LICENSE.GPL3-EXCEPT
-** included in the packaging of this file. Please review the following
-** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-3.0.html.
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2016 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 
 #include <QtTest/QtTest>
 #include <qregexp.h>
@@ -584,8 +558,8 @@ void tst_QRegExp::indexIn()
         QCOMPARE( mypos, pos );
         QCOMPARE( mylen, len );
         if ( caps.size() > 1 && caps[1] != "IGNORE ME" ) {
-            QCOMPARE( mycaps.count(), caps.count() );
-            for ( int i = 1; i < (int) mycaps.count(); i++ )
+            QCOMPARE( mycaps.size(), caps.size() );
+            for ( int i = 1; i < (int) mycaps.size(); i++ )
                 QCOMPARE( mycaps[i], caps[i] );
         }
     }
@@ -602,8 +576,8 @@ void tst_QRegExp::indexIn()
         QCOMPARE( mypos, pos );
         QCOMPARE( mylen, len );
         if ( caps.size() > 1 && caps[1] != "IGNORE ME" ) {
-            QCOMPARE( mycaps.count(), caps.count() );
-            for ( int i = 1; i < (int) mycaps.count(); i++ )
+            QCOMPARE( mycaps.size(), caps.size() );
+            for ( int i = 1; i < (int) mycaps.size(); i++ )
                 QCOMPARE( mycaps[i], caps[i] );
         }
     }
@@ -629,7 +603,7 @@ void tst_QRegExp::lastIndexIn()
         QRegExp rx( regexpStr );
         QVERIFY( rx.isValid() );
 
-        int mypos = rx.lastIndexIn( target, target.length() );
+        int mypos = rx.lastIndexIn( target, target.size() );
         int mylen = rx.matchedLength();
         QStringList mycaps = rx.capturedTexts();
 
@@ -638,8 +612,8 @@ void tst_QRegExp::lastIndexIn()
             QCOMPARE( mylen, len );
 
             if (caps.size() > 1 && caps[1] != "IGNORE ME") {
-                QCOMPARE( mycaps.count(), caps.count() );
-                for ( int i = 1; i < (int) mycaps.count(); i++ )
+                QCOMPARE( mycaps.size(), caps.size() );
+                for ( int i = 1; i < (int) mycaps.size(); i++ )
                     QCOMPARE( mycaps[i], caps[i] );
             }
         }
@@ -649,7 +623,7 @@ void tst_QRegExp::lastIndexIn()
         QRegExp rx( regexpStr, Qt::CaseSensitive, QRegExp::RegExp2 );
         QVERIFY( rx.isValid() );
 
-        int mypos = rx.lastIndexIn( target, target.length() );
+        int mypos = rx.lastIndexIn( target, target.size() );
         int mylen = rx.matchedLength();
         QStringList mycaps = rx.capturedTexts();
 
@@ -658,8 +632,8 @@ void tst_QRegExp::lastIndexIn()
             QCOMPARE( mylen, len );
 
             if (caps.size() > 1 && caps[1] != "IGNORE ME") {
-                QCOMPARE( mycaps.count(), caps.count() );
-                for ( int i = 1; i < (int) mycaps.count(); i++ )
+                QCOMPARE( mycaps.size(), caps.size() );
+                for ( int i = 1; i < (int) mycaps.size(); i++ )
                     QCOMPARE( mycaps[i], caps[i] );
             }
         }
@@ -1522,7 +1496,7 @@ void tst_QRegExp::removeIn()
     QFETCH( QString, regexp );
     QFETCH( QString, after );
 
-    if ( after.length() == 0 ) {
+    if ( after.size() == 0 ) {
         QString s2 = string;
         s2 = QRegExp(regexp).removeIn(s2);
         QTEST( s2, "result" );

@@ -1,41 +1,5 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the QtCore module of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:LGPL$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 3 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL3 included in the
-** packaging of this file. Please review the following information to
-** ensure the GNU Lesser General Public License version 3 requirements
-** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 2.0 or (at your option) the GNU General
-** Public license version 3 or any later version approved by the KDE Free
-** Qt Foundation. The licenses are as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
-** included in the packaging of this file. Please review the following
-** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-2.0.html and
-** https://www.gnu.org/licenses/gpl-3.0.html.
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2016 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 
 #include "qbig5codec_p.h"
 
@@ -43,16 +7,6 @@ QT_BEGIN_NAMESPACE
 
 static int qt_Big5hkscsToUnicode(const uchar *s, uint *pwc);
 static int qt_UnicodeToBig5hkscs(uint wc, uchar *r);
-
-#define InRange(c, lower, upper)  (((c) >= (lower)) && ((c) <= (upper)))
-#define IsLatin(c)        ((c) < 0x80)
-#define IsFirstByte(c)        (InRange((c), 0x81, 0xFE))
-#define IsSecondByteRange1(c)        (InRange((c), 0x40, 0x7E))
-#define IsSecondByteRange2(c)        (InRange((c), 0xA1, 0xFE))
-#define IsSecondByte(c)        (IsSecondByteRange1(c) || IsSecondByteRange2(c))
-
-#define        QValidChar(u)        ((u) ? QChar((ushort)(u)) : QChar(QChar::ReplacementCharacter))
-
 
 int QBig5Codec::_mibEnum()
 {
@@ -1730,7 +1684,7 @@ QString QBig5Codec::convertToUnicode(const char* chars, int len, ConverterState 
             if (IsLatin(ch)) {
                 // ASCII
                 result += QLatin1Char(ch);
-            } else if (IsFirstByte(ch)) {
+            } else if (Is1stByte(ch)) {
                 // Big5-ETen
                 buf[0] = ch;
                 nbuf = 1;
@@ -1850,7 +1804,7 @@ QString QBig5hkscsCodec::convertToUnicode(const char* chars, int len, ConverterS
             if (IsLatin(ch)) {
                 // ASCII
                 result += QLatin1Char(ch);
-            } else if (IsFirstByte(ch)) {
+            } else if (Is1stByte(ch)) {
                 // Big5-HKSCS
                 buf[0] = ch;
                 nbuf = 1;

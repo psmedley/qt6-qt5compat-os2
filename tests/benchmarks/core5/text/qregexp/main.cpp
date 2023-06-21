@@ -1,30 +1,5 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the test suite of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:GPL-EXCEPT$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 3 as published by the Free Software
-** Foundation with exceptions as appearing in the file LICENSE.GPL3-EXCEPT
-** included in the packaging of this file. Please review the following
-** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-3.0.html.
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+// Copyright (C) 2016 The Qt Company Ltd.
+// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 
 #include <QDebug>
 #include <QRegExp>
@@ -133,7 +108,7 @@ void tst_qregexp::escape_old()
         QString quoted = pattern;
         int i = 0;
 
-        while (i < quoted.length()) {
+        while (i < quoted.size()) {
             if (strchr(meta, quoted.at(i).toLatin1()) != 0)
                 quoted.insert(i++, QLatin1Char('\\'));
             ++i;
@@ -150,7 +125,7 @@ void tst_qregexp::escape_new1()
 
     QBENCHMARK {
         QString quoted;
-        const int count = pattern.count();
+        const int count = pattern.size();
         quoted.reserve(count * 2);
         const QLatin1Char backslash('\\');
         for (int i = 0; i < count; i++) {
@@ -183,7 +158,7 @@ void tst_qregexp::escape_new2()
     QFETCH(QString, expected);
 
     QBENCHMARK {
-        int count = pattern.count();
+        int count = pattern.size();
         const QLatin1Char backslash('\\');
         QString quoted(count * 2, backslash);
         const QChar *patternData = pattern.data();
@@ -225,7 +200,7 @@ void tst_qregexp::escape_new3()
 
     QBENCHMARK {
         QString quoted;
-        const int count = pattern.count();
+        const int count = pattern.size();
         quoted.reserve(count * 2);
         const QLatin1Char backslash('\\');
         for (int i = 0; i < count; i++) {
