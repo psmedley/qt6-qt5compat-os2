@@ -1,8 +1,17 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
+#ifdef QT_NO_JAVA_STYLE_ITERATORS
+#  undef QT_NO_JAVA_STYLE_ITERATORS // this file tests them
+#endif
+#ifdef QT_ENABLE_STRICT_MODE_UP_TO
+#  undef QT_ENABLE_STRICT_MODE_UP_TO // this enables QT_NO_JAVA_STYLE_ITERATORS
+#endif
+
 #include <QtTest/QtTest>
 #include <QLinkedList>
+
+#include <list>
 
 struct Movable
 {
@@ -131,6 +140,8 @@ class tst_QLinkedList : public QObject
     Q_OBJECT
 private slots:
     void eraseValidIteratorsOnSharedList() const;
+    void rangeEraseValidIteratorsOnSharedList_data() const;
+    void rangeEraseValidIteratorsOnSharedList() const;
     void insertWithIteratorsOnSharedList() const;
     void lengthInt() const;
     void lengthMovable() const;
@@ -194,6 +205,9 @@ private slots:
     void constSharedNullComplex() const;
 
     void iterators() const;
+
+    void operatorPlusEqualRestoresSizeOnThrow_data();
+    void operatorPlusEqualRestoresSizeOnThrow();
 
 private:
     template<typename T>
@@ -308,7 +322,7 @@ void tst_QLinkedList::eraseValidIteratorsOnSharedList() const
     a.append(5);
     a.append(10);
     a.append(20);
-    a.append(20);
+    a.append(20); // ← to erase
     a.append(20);
     a.append(20);
     a.append(30);
@@ -323,7 +337,72 @@ void tst_QLinkedList::eraseValidIteratorsOnSharedList() const
     QCOMPARE(a.size(), 6);
     --r;
     --r;
-    QCOMPARE(*r, 10); // Ensure that number 2 instance was removed;
+    QCOMPARE(*r, 10);
+}
+
+void tst_QLinkedList::rangeEraseValidIteratorsOnSharedList_data() const
+{
+    QTest::addColumn<QLinkedList<int>>("list");
+    QTest::addColumn<int>("startIndex");
+    QTest::addColumn<int>("endIndex");
+    QTest::addColumn<QLinkedList<int>>("result");
+
+    constexpr auto row = [](std::initializer_list<int> il, int s, int e) {
+        QLinkedList ql = il;
+        // We use std::list as the reference implementation against which we check QLinkedList:
+        std::list sl = il;
+        sl.erase(std::next(sl.begin(), s), std::next(sl.begin(), e));
+        QByteArray name;
+        for (int i : il) {
+            name += QByteArray::number(i);
+            name += ", ";
+        }
+        if (il.size())
+            name.chop(2); // remove trailing ", "
+        QTest::addRow("{%s}/%d/%d", std::as_const(name).data(), s, e)
+                << ql << s << e << QLinkedList<int>::fromStdList(sl);
+    };
+
+    row({}, 0, 0);
+
+    row({1}, 0, 0);
+    row({1}, 0, 1);
+    row({1}, 1, 1);
+
+    row({1, 2}, 0, 0);
+    row({1, 2}, 0, 1);
+    row({1, 2}, 0, 2);
+
+    row({1, 2}, 1, 1);
+    row({1, 2}, 1, 2);
+
+    row({1, 2}, 2, 2);
+}
+
+void tst_QLinkedList::rangeEraseValidIteratorsOnSharedList() const
+{
+    QFETCH(const QLinkedList<int>, list);
+    QFETCH(const int, startIndex);
+    QFETCH(const int, endIndex);
+    QFETCH(const QLinkedList<int>, result);
+
+    QCOMPARE_GE(endIndex, startIndex);
+    QCOMPARE_LE(endIndex, list.size());
+
+    auto l = list;
+    QVERIFY(l.isSharedWith(list));
+
+    const auto b = l.begin(); // detaches
+    QVERIFY(l.isDetached());
+
+    const auto copy = l;
+    QVERIFY(copy.isSharedWith(l));
+
+    l.erase(std::next(b, startIndex), std::next(b, endIndex));
+    QCOMPARE_EQ(l.isSharedWith(copy), startIndex == endIndex);
+
+    QCOMPARE_EQ(copy, list);
+    QCOMPARE_EQ(l, result);
 }
 
 void tst_QLinkedList::insertWithIteratorsOnSharedList() const
@@ -1185,6 +1264,92 @@ void tst_QLinkedList::iterators() const
         while (i.findNext(42))
             i.remove();
     }
+}
+
+// The class can throw an exception in the copy-ctor()
+class ThrowingValue
+{
+public:
+    ThrowingValue() = default;
+    ~ThrowingValue() = default;
+
+    ThrowingValue(const ThrowingValue &)
+    {
+        maybeThrowException();
+    }
+
+    ThrowingValue &operator=(const ThrowingValue &)
+    {
+        maybeThrowException();
+        return *this;
+    }
+
+    ThrowingValue(ThrowingValue &&) = delete;
+    ThrowingValue &operator=(ThrowingValue &&) = delete;
+
+    static int throwCounter; // -1 means "do not throw"
+
+private:
+    void maybeThrowException()
+    {
+        if (--throwCounter == 0)
+            QT_THROW(int(42));
+    }
+};
+
+int ThrowingValue::throwCounter = -1;
+
+void tst_QLinkedList::operatorPlusEqualRestoresSizeOnThrow_data()
+{
+    QTest::addColumn<int>("initialSize");
+    QTest::addColumn<int>("otherSize");
+
+#ifdef QT_NO_EXCEPTIONS
+    QSKIP("This test requires exception support.");
+#endif
+
+    QTest::newRow("append_three_to_zero") << 0 << 3;
+    QTest::newRow("append_three_to_one") << 1 << 3;
+    QTest::newRow("append_five_to_three") << 3 << 5;
+    QTest::newRow("append_three_to_five") << 5 << 3;
+}
+
+void tst_QLinkedList::operatorPlusEqualRestoresSizeOnThrow()
+{
+    QFETCH(const int, initialSize);
+    QFETCH(const int, otherSize);
+
+    Q_ASSERT(otherSize > 0); // Appending 0 does not make sense here
+
+    ThrowingValue::throwCounter = -1; // do not throw while creating the lists
+
+    const int maxSize = (std::max)(initialSize, otherSize);
+    std::vector<ThrowingValue> vals(maxSize, ThrowingValue());
+
+    using ThrowingList = QLinkedList<ThrowingValue>;
+
+    // initial can be empty
+    ThrowingList initial = initialSize > 0 ? ThrowingList(vals.begin(), vals.begin() + initialSize)
+                                           : ThrowingList();
+    QCOMPARE(initial.size(), initialSize);
+
+    ThrowingList other = ThrowingList(vals.begin(), vals.begin() + otherSize);
+    QCOMPARE(other.size(), otherSize);
+
+    ThrowingValue::throwCounter = otherSize - 1; // last by one copy should throw
+
+    QT_TRY {
+        initial += other;
+    } QT_CATCH(...) {
+    }
+
+    // QTBUG-149006: size should be restored to original.
+    QCOMPARE(initial.size(), initialSize);
+
+    // The loop should finish successfully, previously it would hang forever
+    while (!initial.isEmpty())
+        initial.removeLast();
+    QCOMPARE(initial.size(), 0);
 }
 
 QT_END_NAMESPACE

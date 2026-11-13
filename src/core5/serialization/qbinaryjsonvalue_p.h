@@ -1,5 +1,6 @@
 // Copyright (C) 2019 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:trivial-impl-only
 
 #ifndef QBINARYJSONVALUE_P_H
 #define QBINARYJSONVALUE_P_H
@@ -81,8 +82,6 @@ private:
 
     QBinaryJsonValue(QBinaryJsonPrivate::MutableData *d, QBinaryJsonPrivate::Base *parent,
                      const QBinaryJsonPrivate::Value &v);
-
-    void detach();
 
     union {
         quint64 ui;

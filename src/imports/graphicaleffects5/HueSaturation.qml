@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype HueSaturation
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Alters the source item colors in the HSL color space.
 
@@ -22,8 +23,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image HueSaturation_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image HueSaturation_bug.png {Beetle with hue and saturation adjusted}
     \endtable
 
     \section1 Example
@@ -57,9 +58,9 @@ Item {
         \li
         \li
         \row
-            \li \image HueSaturation_hue1.png
-            \li \image HueSaturation_hue2.png
-            \li \image HueSaturation_hue3.png
+            \li \image HueSaturation_hue1.png {Beetle with hue shifted left}
+            \li \image HueSaturation_hue2.png {Beetle at original hue}
+            \li \image HueSaturation_hue3.png {Beetle with hue shifted right}
         \row
             \li \b { hue: -0.3 }
             \li \b { hue: 0.0 }
@@ -90,9 +91,9 @@ Item {
         \li
         \li
         \row
-            \li \image HueSaturation_saturation1.png
-            \li \image HueSaturation_saturation2.png
-            \li \image HueSaturation_saturation3.png
+            \li \image HueSaturation_saturation1.png {Beetle mostly desaturated}
+            \li \image HueSaturation_saturation2.png {Beetle at original saturation}
+            \li \image HueSaturation_saturation3.png {Beetle with increased saturation}
         \row
             \li \b { saturation: -0.8 }
             \li \b { saturation: 0.0 }
@@ -123,9 +124,9 @@ Item {
         \li
         \li
         \row
-            \li \image HueSaturation_lightness1.png
-            \li \image HueSaturation_lightness2.png
-            \li \image HueSaturation_lightness3.png
+            \li \image HueSaturation_lightness1.png {Beetle darkened}
+            \li \image HueSaturation_lightness2.png {Beetle at original lightness}
+            \li \image HueSaturation_lightness3.png {Beetle lightened}
         \row
             \li \b { lightness: -0.5 }
             \li \b { lightness: 0.0 }

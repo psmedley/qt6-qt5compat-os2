@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,9 +9,13 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype OpacityMask
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-mask
     \brief Masks the source item with another item.
+
+    \note The MultiEffect component provides a mask effect with some performance
+    advantages. For new code, it should be considered as an alternative to using Qt Graphical
+    Effects.
 
     \table
     \header
@@ -18,9 +23,9 @@ import Qt5Compat.GraphicalEffects.private
         \li MaskSource
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image OpacityMask_mask.png
-        \li \image OpacityMask_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image OpacityMask_mask.png {Circular gradient mask}
+        \li \image OpacityMask_bug.png {Beetle with circular mask applied}
     \endtable
 
     \section1 Example
@@ -52,9 +57,9 @@ Item {
             \li Mask
             \li Effect applied
         \row
-            \li \image Original_bug.png
-            \li \image OpacityMask_mask.png
-            \li \image OpacityMask_bug.png
+            \li \image Original_bug.png {Black beetle on a leaf}
+            \li \image OpacityMask_mask.png {Circular gradient mask}
+            \li \image OpacityMask_bug.png {Beetle with circular mask applied}
         \endtable
     */
     property variant maskSource

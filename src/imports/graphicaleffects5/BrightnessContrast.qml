@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,9 +9,13 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype BrightnessContrast
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Adjusts brightness and contrast.
+
+    \note The MultiEffect component provides a brightness and contrast effect with some performance
+    advantages. For new code, it should be considered as an alternative to using Qt Graphical
+    Effects.
 
     This effect adjusts the source item colors.
     Brightness adjustment changes the perceived luminance of the source item.
@@ -22,8 +27,9 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
         \li \image BrightnessContrast_bug.png
+               {Beetle with adjusted brightness and contrast}
     \endtable
 
     \section1 Example
@@ -57,9 +63,9 @@ Item {
         \li
         \li
         \row
-            \li \image BrightnessContrast_brightness1.png
-            \li \image BrightnessContrast_brightness2.png
-            \li \image BrightnessContrast_brightness3.png
+            \li \image BrightnessContrast_brightness1.png {Darkened beetle, brightness -0.25}
+            \li \image BrightnessContrast_brightness2.png {Beetle at normal brightness}
+            \li \image BrightnessContrast_brightness3.png {Brightened beetle, brightness 0.5}
         \row
             \li \b { brightness: -0.25 }
             \li \b { brightness: 0 }
@@ -83,7 +89,7 @@ Item {
         \header
             \li Contrast adjustment curve
         \row
-            \li \image BrightnessContrast_contrast_graph.png
+            \li \image BrightnessContrast_contrast_graph.png {Graph showing contrast adjustment curve}
         \endtable
 
        The value ranges from -1.0 to 1.0. By default, the property is set to \c 0.0 (no change).
@@ -94,9 +100,9 @@ Item {
         \li
         \li
         \row
-            \li \image BrightnessContrast_contrast1.png
-            \li \image BrightnessContrast_contrast2.png
-            \li \image BrightnessContrast_contrast3.png
+            \li \image BrightnessContrast_contrast1.png {Beetle with reduced contrast}
+            \li \image BrightnessContrast_contrast2.png {Beetle at normal contrast}
+            \li \image BrightnessContrast_contrast3.png {Beetle with increased contrast}
         \row
             \li \b { contrast: -0.5 }
             \li \b { contrast: 0 }

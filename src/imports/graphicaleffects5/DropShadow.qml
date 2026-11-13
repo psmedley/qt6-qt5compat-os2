@@ -1,6 +1,7 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // Copyright (C) 2017 Jolla Ltd, author: <gunnar.sletta@jollamobile.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -9,10 +10,14 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype DropShadow
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-drop-shadow
 
     \brief Generates a soft shadow behind the source item.
+
+    \note The MultiEffect component provides a drop shadow effect with some performance
+    advantages. For new code, it should be considered as an alternative to using Qt Graphical
+    Effects.
 
     The DropShadow effect blurs the alpha channel of the input, colorizes the
     result and places it behind the source object to create a soft shadow. The
@@ -25,8 +30,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_butterfly.png
-        \li \image DropShadow_butterfly.png
+        \li \image Original_butterfly.png {Colorful butterfly graphic}
+        \li \image DropShadow_butterfly.png {Butterfly with drop shadow behind it}
     \endtable
 
     The soft shadow is created by blurring the image live using a gaussian
@@ -87,9 +92,9 @@ Item {
         \li
         \li
         \row
-            \li \image DropShadow_radius1.png
-            \li \image DropShadow_radius2.png
-            \li \image DropShadow_radius3.png
+            \li \image DropShadow_radius1.png {Sharp shadow with radius 0}
+            \li \image DropShadow_radius2.png {Soft shadow with radius 6}
+            \li \image DropShadow_radius3.png {Very soft shadow with radius 12}
         \row
             \li \b { radius: 0 }
             \li \b { radius: 6 }
@@ -115,6 +120,9 @@ Item {
             \li \l spread: 0
             \li \l spread: 0
         \endtable
+
+        \note The \c radius property is used to calculate the size of the effect's offscreen buffer.
+        Higher values will cause larger memory allocations.
     */
     property alias radius: dbs.radius;
 
@@ -152,9 +160,9 @@ Item {
         \li
         \li
         \row
-            \li \image DropShadow_color1.png
-            \li \image DropShadow_color2.png
-            \li \image DropShadow_color3.png
+            \li \image DropShadow_color1.png {Butterfly with black shadow}
+            \li \image DropShadow_color2.png {Butterfly with blue shadow}
+            \li \image DropShadow_color3.png {Butterfly with semi-transparent shadow}
         \row
             \li \b { color: #000000 }
             \li \b { color: #0000ff }
@@ -204,9 +212,9 @@ Item {
         \li
         \li
         \row
-            \li \image DropShadow_horizontalOffset1.png
-            \li \image DropShadow_horizontalOffset2.png
-            \li \image DropShadow_horizontalOffset3.png
+            \li \image DropShadow_horizontalOffset1.png {Shadow offset to the left}
+            \li \image DropShadow_horizontalOffset2.png {Shadow centered below}
+            \li \image DropShadow_horizontalOffset3.png {Shadow offset to the right}
         \row
             \li \b { horizontalOffset: -20 }
             \li \b { horizontalOffset: 0 }
@@ -239,8 +247,8 @@ Item {
         \li
         \li
         \row
-            \li \image DropShadow_horizontalOffset2.png
-            \li \image DropShadow_spread1.png
+            \li \image DropShadow_horizontalOffset2.png {Shadow centered below}
+            \li \image DropShadow_spread1.png {Shadow with vertical offset}
         \row
             \li \b { horizontalOffset: 0 }
             \li \b { horizontalOffset: 0 }
@@ -277,9 +285,9 @@ Item {
         \li
         \li
         \row
-            \li \image DropShadow_spread1.png
-            \li \image DropShadow_spread2.png
-            \li \image DropShadow_spread3.png
+            \li \image DropShadow_spread1.png {Shadow with no spread}
+            \li \image DropShadow_spread2.png {Shadow with medium spread}
+            \li \image DropShadow_spread3.png {Shadow with full spread}
         \row
             \li \b { spread: 0.0 }
             \li \b { spread: 0.5 }
@@ -349,6 +357,7 @@ Item {
         \snippet DropShadow-transparentBorder-example.qml example
 
         \image DropShadow-transparentBorder.png
+               {Rectangles showing difference between transparent border settings}
     */
     property alias transparentBorder: dbs.transparentBorder
 }

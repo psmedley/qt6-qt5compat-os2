@@ -33,5 +33,4 @@ qt_internal_add_qml_module(qtgraphicaleffectsprivate
         Qt::QuickPrivate
         Qt::ShaderTools
         Qt::ShaderToolsPrivate
-    OS2_SHORT_NAME GraphEfP
 )

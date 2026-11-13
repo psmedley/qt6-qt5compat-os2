@@ -1,10 +1,12 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qlinkedlist.h"
 
 QT_BEGIN_NAMESPACE
 
+Q_CONSTINIT
 const QLinkedListData QLinkedListData::shared_null = {
     const_cast<QLinkedListData *>(&QLinkedListData::shared_null),
     const_cast<QLinkedListData *>(&QLinkedListData::shared_null),
@@ -20,9 +22,10 @@ const QLinkedListData QLinkedListData::shared_null = {
 
     \reentrant
 
-    QLinkedList\<T\> is one of Qt's generic \l{container classes}. It
-    stores a list of values and provides iterator-based access as
-    well as \l{constant time} insertions and removals.
+    QLinkedList\<T\> is one of Qt's generic \l{container classes}, where
+    \a T is the type of elements stored in the list. It stores a list of
+    values and provides iterator-based access as well as \l{constant time}
+    insertions and removals.
 
     QList\<T\> and QLinkedList\<T\> provide similar functionality.
     Here's an overview:

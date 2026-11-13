@@ -1,5 +1,7 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:data-parser
+// ### TODO: inline this file into qxml.cpp
 
 #ifndef QXML_P_H
 #define QXML_P_H
@@ -144,6 +146,9 @@ private:
     };
     friend class QTypeInfo<ParseState>;
     QStack<ParseState> *parseStack;
+    bool resumeSuspendedCall();
+    int tryUnwindParseStack(ParseState::ParseFunction func);
+
 
     // used in parseProlog()
     bool xmldecl_possible;
@@ -219,6 +224,32 @@ private:
     bool entityExist(const QString&) const;
 
     bool parseBeginOrContinue(int state, bool incremental);
+
+    enum class FrameType
+    {
+        Element,
+        Content,
+        ChoiceSeq,
+    };
+
+    enum class FrameParseResult
+    {
+        Done,
+        Failed,
+        EnterElement,
+        EnterContent,
+        EnterChoiceSeq,
+    };
+
+    struct FrameState
+    {
+        FrameType frame;
+        int state;
+    };
+    bool parseNestedFrames(FrameType outermost);
+    FrameParseResult parseElementFrame(int &state);
+    FrameParseResult parseContentFrame(int &state);
+    FrameParseResult parseChoiceSeqFrame(int &state);
 
     bool parseProlog();
     bool parseElement();

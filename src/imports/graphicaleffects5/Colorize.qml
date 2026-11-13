@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,9 +9,13 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype Colorize
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Sets the color in the HSL color space.
+
+    \note The MultiEffect component provides a colorize effect with some performance
+    advantages. For new code, it should be considered as an alternative to using Qt Graphical
+    Effects.
 
     The effect is similar to what happens when a colorized glass is put on top
     of a grayscale image. Colorize uses the hue, saturation, and lightness (HSL)
@@ -25,8 +30,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image Colorize_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image Colorize_bug.png {Beetle with colorize effect applied}
     \endtable
 
     \section1 Example
@@ -57,7 +62,7 @@ Item {
         \header
             \li Allowed hue values
         \row
-            \li \image Colorize_hue_scale.png
+            \li \image Colorize_hue_scale.png {Color spectrum showing hue values from 0.0 to 1.0}
         \endtable
 
         \table
@@ -66,9 +71,9 @@ Item {
         \li
         \li
         \row
-            \li \image Colorize_hue1.png
-            \li \image Colorize_hue2.png
-            \li \image Colorize_hue3.png
+            \li \image Colorize_hue1.png {Beetle colorized with hue 0.2}
+            \li \image Colorize_hue2.png {Beetle colorized with hue 0.5}
+            \li \image Colorize_hue3.png {Beetle colorized with hue 0.8}
         \row
             \li \b { hue: 0.2 }
             \li \b { hue: 0.5 }
@@ -98,9 +103,9 @@ Item {
         \li
         \li
         \row
-            \li \image Colorize_saturation1.png
-            \li \image Colorize_saturation2.png
-            \li \image Colorize_saturation3.png
+            \li \image Colorize_saturation1.png {Beetle desaturated, saturation 0}
+            \li \image Colorize_saturation2.png {Beetle with saturation 0.5}
+            \li \image Colorize_saturation3.png {Beetle fully saturated}
         \row
             \li \b { saturation: 0 }
             \li \b { saturation: 0.5 }
@@ -133,9 +138,9 @@ Item {
         \li
         \li
         \row
-            \li \image Colorize_lightness1.png
-            \li \image Colorize_lightness2.png
-            \li \image Colorize_lightness3.png
+            \li \image Colorize_lightness1.png {Beetle darkened, lightness -0.75}
+            \li \image Colorize_lightness2.png {Beetle at normal lightness}
+            \li \image Colorize_lightness3.png {Beetle lightened, lightness 0.75}
         \row
             \li \b { lightness: -0.75 }
             \li \b { lightness: 0 }

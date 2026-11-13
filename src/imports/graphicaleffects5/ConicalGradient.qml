@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype ConicalGradient
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-gradient
     \brief Draws a conical gradient.
 
@@ -20,7 +21,7 @@ import Qt5Compat.GraphicalEffects.private
     \header
         \li Effect applied
     \row
-        \li \image ConicalGradient.png
+        \li \image ConicalGradient.png {Conical gradient with colors rotating around center}
     \endtable
 
     \section1 Example
@@ -60,9 +61,9 @@ Item {
         \li
         \li
         \row
-            \li \image ConicalGradient_angle1.png
-            \li \image ConicalGradient_angle2.png
-            \li \image ConicalGradient_angle3.png
+            \li \image ConicalGradient_angle1.png {Conical gradient at angle 0}
+            \li \image ConicalGradient_angle2.png {Conical gradient at angle 45}
+            \li \image ConicalGradient_angle3.png {Conical gradient at angle 185}
         \row
             \li \b { angle: 0 }
             \li \b { angle: 45 }
@@ -96,9 +97,9 @@ Item {
     \li
     \li
     \row
-        \li \image ConicalGradient_horizontalOffset1.png
-        \li \image ConicalGradient_horizontalOffset2.png
-        \li \image ConicalGradient_horizontalOffset3.png
+        \li \image ConicalGradient_horizontalOffset1.png {Gradient center offset left}
+        \li \image ConicalGradient_horizontalOffset2.png {Gradient center at origin}
+        \li \image ConicalGradient_horizontalOffset3.png {Gradient center offset right}
     \row
         \li \b { horizontalOffset: -50 }
         \li \b { horizontalOffset: 0 }
@@ -128,8 +129,8 @@ Item {
         \li Output examples with different source values
         \li
         \row
-            \li \image ConicalGradient_maskSource1.png
-            \li \image ConicalGradient_maskSource2.png
+            \li \image ConicalGradient_maskSource1.png {Gradient filling entire area}
+            \li \image ConicalGradient_maskSource2.png {Gradient masked by butterfly shape}
         \row
             \li \b { source: undefined }
             \li \b { source:  }
@@ -163,9 +164,9 @@ Item {
     \li
     \li
     \row
-        \li \image ConicalGradient_gradient1.png
-        \li \image ConicalGradient_gradient2.png
-        \li \image ConicalGradient_gradient3.png
+        \li \image ConicalGradient_gradient1.png {Rainbow gradient rotating around center}
+        \li \image ConicalGradient_gradient2.png {Gray gradient rotating around center}
+        \li \image ConicalGradient_gradient3.png {Transparent to black gradient}
     \row
         \li \b {gradient:} \code
 Gradient {

@@ -1,6 +1,7 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // Copyright (C) 2017 Jolla Ltd, author: <gunnar.sletta@jollamobile.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -9,7 +10,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype Glow
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-glow
     \brief Generates a blurred and colorized image of the source and places it
     behind the original, giving impression that the source is glowing.
@@ -19,8 +20,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_butterfly_black.png
-        \li \image Glow_butterfly.png
+        \li \image Original_butterfly_black.png {White butterfly on black background}
+        \li \image Glow_butterfly.png {Butterfly with glowing edges}
     \endtable
 
     \section1 Example
@@ -76,9 +77,9 @@ Item {
         \li
         \li
         \row
-            \li \image Glow_radius1.png
-            \li \image Glow_radius2.png
-            \li \image Glow_radius3.png
+            \li \image Glow_radius1.png {No glow effect}
+            \li \image Glow_radius2.png {Moderate glow radius}
+            \li \image Glow_radius3.png {Large glow radius}
         \row
             \li \b { radius: 0 }
             \li \b { radius: 6 }
@@ -96,6 +97,9 @@ Item {
             \li \l spread: 0
             \li \l spread: 0
         \endtable
+
+        \note The \c radius property is used to calculate the size of the effect's offscreen buffer.
+        Higher values will cause larger memory allocations.
     */
     property alias radius: dps.radius
 
@@ -139,9 +143,9 @@ Item {
         \li
         \li
         \row
-            \li \image Glow_spread1.png
-            \li \image Glow_spread2.png
-            \li \image Glow_spread3.png
+            \li \image Glow_spread1.png {Glow with no spread}
+            \li \image Glow_spread2.png {Glow with medium spread}
+            \li \image Glow_spread3.png {Glow with full spread}
         \row
             \li \b { spread: 0.0 }
             \li \b { spread: 0.5 }
@@ -173,9 +177,9 @@ Item {
         \li
         \li
         \row
-            \li \image Glow_color1.png
-            \li \image Glow_color2.png
-            \li \image Glow_color3.png
+            \li \image Glow_color1.png {White glow effect}
+            \li \image Glow_color2.png {Green glow effect}
+            \li \image Glow_color3.png {Semi-transparent green glow}
         \row
             \li \b { color: #ffffff }
             \li \b { color: #00ff00 }
@@ -241,6 +245,7 @@ Item {
         \snippet Glow-transparentBorder-example.qml example
 
         \image Glow-transparentBorder.png
+               {Rectangles showing difference between transparent border settings}
     */
     property alias transparentBorder: dps.transparentBorder
 }

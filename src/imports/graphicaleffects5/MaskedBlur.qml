@@ -1,6 +1,7 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // Copyright (C) 2017 Jolla Ltd, author: <gunnar.sletta@jollamobile.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -9,7 +10,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype MaskedBlur
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-blur
     \brief Applies a blur effect with a varying intesity.
 
@@ -27,9 +28,9 @@ import Qt5Compat.GraphicalEffects.private
         \li MaskSource
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image MaskedBlur_mask.png
-        \li \image MaskedBlur_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image MaskedBlur_mask.png {Blur intensity mask with gradient}
+        \li \image MaskedBlur_bug.png {Beetle with variable intensity blur}
     \endtable
 
     \note This effect is available when running with OpenGL.
@@ -82,9 +83,9 @@ Item {
         \li
         \li
         \row
-            \li \image MaskedBlur_radius1.png
-            \li \image MaskedBlur_radius2.png
-            \li \image MaskedBlur_radius3.png
+            \li \image MaskedBlur_radius1.png {No blur applied}
+            \li \image MaskedBlur_radius2.png {Moderate masked blur}
+            \li \image MaskedBlur_radius3.png {Heavy masked blur}
         \row
             \li \b { radius: 0 }
             \li \b { radius: 8 }
@@ -95,6 +96,8 @@ Item {
             \li \l samples: 25
         \endtable
 
+        \note The \c radius property is used to calculate the size of the effect's offscreen buffer.
+        Higher values will cause larger memory allocations.
     */
     property alias radius: blur.radius
 

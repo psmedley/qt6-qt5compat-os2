@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:data-parser
 
 #include "qbinaryjsonobject_p.h"
 #include "qbinaryjsonvalue_p.h"
@@ -92,19 +93,6 @@ QString QBinaryJsonValue::toString() const
     if (t != QJsonValue::String)
         return QString();
     return stringData;
-}
-
-void QBinaryJsonValue::detach()
-{
-    if (!d)
-        return;
-
-    QBinaryJsonPrivate::MutableData *x = d->clone(base);
-    x->ref.ref();
-    if (!d->ref.deref())
-        delete d;
-    d = x;
-    base = static_cast<QBinaryJsonPrivate::Object *>(d->header->root());
 }
 
 QT_END_NAMESPACE

@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,20 +9,21 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype ColorOverlay
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Alters the colors of the source item by applying an overlay color.
 
     The effect is similar to what happens when a colorized glass is put on top
-    of a grayscale image. The color for the overlay is given in the RGBA format.
+    of a grayscale image. The color for the overlay is given in the ARGB format.
 
     \table
     \header
         \li Source
         \li Effect applied
     \row
-        \li \image Original_butterfly.png
+        \li \image Original_butterfly.png {Colorful butterfly graphic}
         \li \image ColorOverlay_butterfly.png
+               {Butterfly with color overlay applied}
     \endtable
 
     \section1 Example
@@ -54,9 +56,9 @@ Item {
         \li
         \li
         \row
-            \li \image ColorOverlay_color1.png
-            \li \image ColorOverlay_color2.png
-            \li \image ColorOverlay_color3.png
+            \li \image ColorOverlay_color1.png {Butterfly with red overlay}
+            \li \image ColorOverlay_color2.png {Butterfly with green overlay}
+            \li \image ColorOverlay_color3.png {Butterfly with blue overlay}
         \row
             \li \b { color: #80ff0000 }
             \li \b { color: #8000ff00 }

@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QT5LINKEDLIST_H
 #define QT5LINKEDLIST_H
@@ -11,6 +12,7 @@
 #include <QtCore/qcontainertools_impl.h>
 #include <QtCore/qdatastream.h>
 #include <QtCore/qmetatype.h>
+#include <QtCore/qscopeguard.h>
 #include <QtCore/qtypeinfo.h>
 
 #include <algorithm>
@@ -556,17 +558,15 @@ bool QLinkedList<T>::removeOne(const T &_t)
 template<typename T>
 inline T QLinkedList<T>::takeFirst()
 {
-    T t = std::move(first());
-    removeFirst();
-    return t;
+    const auto remover = qScopeGuard([&] { removeFirst(); });
+    return std::move(first());
 }
 
 template<typename T>
 inline T QLinkedList<T>::takeLast()
 {
-    T t = std::move(last());
-    removeLast();
-    return t;
+    const auto remover = qScopeGuard([&] { removeLast(); });
+    return std::move(last());
 }
 
 template<typename T>
@@ -610,9 +610,33 @@ template<typename T>
 typename QLinkedList<T>::iterator QLinkedList<T>::erase(typename QLinkedList<T>::iterator afirst,
                                                         typename QLinkedList<T>::iterator alast)
 {
-    while (afirst != alast)
-        erase(afirst++);
-    return alast;
+    if (afirst == alast)
+        return alast; // no-op
+    if (!d->ref.isShared()) {
+        do {
+            erase(afirst++);
+        } while (afirst != alast);
+        return alast;
+    }
+    // When shared, don't detach; create a completely new QLinkedList and then swap()
+    const const_iterator cafirst = afirst;
+    const const_iterator calast = alast;
+    QLinkedList l{cbegin(), cafirst};
+    // QLinkedList has no range-insert :(
+    iterator r;
+    if (calast == cend()) {
+        r = l.end();
+    } else {
+        // end() appears to be a sentinel, so need to get an actual iterator:
+        auto it = calast;
+        l.append(*it);
+        ++it;
+        r = std::prev(l.end());
+        for (/* empty */; it != cend(); ++it)
+            l.append(*it);
+    }
+    swap(l);
+    return r;
 }
 
 template<typename T>
@@ -637,8 +661,8 @@ template<typename T>
 QLinkedList<T> &QLinkedList<T>::operator+=(const QLinkedList<T> &l)
 {
     detach();
+    const auto oldSize = d->size;
     int n = l.d->size;
-    d->size += n;
     Node *original = l.e->n;
     while (n--) {
         QT_TRY
@@ -649,11 +673,12 @@ QLinkedList<T> &QLinkedList<T>::operator+=(const QLinkedList<T> &l)
             copy->p = e->p;
             copy->p->n = copy;
             e->p = copy;
+            ++d->size;
         }
         QT_CATCH(...)
         {
             // restore the original list
-            while (n++ < d->size)
+            while (d->size != oldSize)
                 removeLast();
             QT_RETHROW;
         }

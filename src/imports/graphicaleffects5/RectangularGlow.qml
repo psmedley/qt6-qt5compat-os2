@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype RectangularGlow
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-glow
     \brief Generates a blurred and colorized rectangle, which gives
     the impression that the source is glowing.
@@ -21,7 +22,7 @@ import Qt5Compat.GraphicalEffects.private
     \header
         \li Effect applied
     \row
-        \li \image RectangularGlow_applied.png
+        \li \image RectangularGlow_applied.png {White rectangular glow effect}
     \endtable
 
     \section1 Example
@@ -45,9 +46,9 @@ Item {
         \li
         \li
         \row
-            \li \image RectangularGlow_glowRadius1.png
-            \li \image RectangularGlow_glowRadius2.png
-            \li \image RectangularGlow_glowRadius3.png
+            \li \image RectangularGlow_glowRadius1.png {Glow with radius 10}
+            \li \image RectangularGlow_glowRadius2.png {Glow with radius 20}
+            \li \image RectangularGlow_glowRadius3.png {Glow with radius 40}
         \row
             \li \b { glowRadius: 10 }
             \li \b { glowRadius: 20 }
@@ -82,9 +83,9 @@ Item {
         \li
         \li
         \row
-            \li \image RectangularGlow_spread1.png
-            \li \image RectangularGlow_spread2.png
-            \li \image RectangularGlow_spread3.png
+            \li \image RectangularGlow_spread1.png {Glow with spread 0.0}
+            \li \image RectangularGlow_spread2.png {Glow with spread 0.5}
+            \li \image RectangularGlow_spread3.png {Glow with spread 1.0}
         \row
             \li \b { spread: 0.0 }
             \li \b { spread: 0.5 }
@@ -116,9 +117,9 @@ Item {
         \li
         \li
         \row
-            \li \image RectangularGlow_color1.png
-            \li \image RectangularGlow_color2.png
-            \li \image RectangularGlow_color3.png
+            \li \image RectangularGlow_color1.png {White glow}
+            \li \image RectangularGlow_color2.png {Green glow}
+            \li \image RectangularGlow_color3.png {Blue glow}
         \row
             \li \b { color: #ffffff }
             \li \b { color: #55ff55 }
@@ -157,9 +158,9 @@ Item {
         \li
         \li
         \row
-            \li \image RectangularGlow_cornerRadius1.png
-            \li \image RectangularGlow_cornerRadius2.png
-            \li \image RectangularGlow_cornerRadius3.png
+            \li \image RectangularGlow_cornerRadius1.png {Glow with corner radius 0}
+            \li \image RectangularGlow_cornerRadius2.png {Glow with corner radius 25}
+            \li \image RectangularGlow_cornerRadius3.png {Glow with corner radius 50}
         \row
             \li \b { cornerRadius: 0 }
             \li \b { cornerRadius: 25 }

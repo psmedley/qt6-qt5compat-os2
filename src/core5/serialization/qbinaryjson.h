@@ -1,5 +1,7 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:header-decls-only
+
 #ifndef QBINARYJSON_H
 #define QBINARYJSON_H
 
@@ -21,7 +23,10 @@ enum DataValidation {
 };
 
 Q_CORE5COMPAT_EXPORT QJsonDocument fromRawData(const char *data, int size, DataValidation validation = Validate);
+#if QT_DEPRECATED_SINCE(6, 12)
+QT_DEPRECATED_VERSION_X_6_12("Use toBinaryData() instead.")
 Q_CORE5COMPAT_EXPORT const char *toRawData(const QJsonDocument &document, int *size);
+#endif
 
 Q_CORE5COMPAT_EXPORT QJsonDocument fromBinaryData(const QByteArray &data, DataValidation validation = Validate);
 Q_CORE5COMPAT_EXPORT QByteArray toBinaryData(const QJsonDocument &document);

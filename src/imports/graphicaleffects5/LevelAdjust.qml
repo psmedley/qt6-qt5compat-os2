@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype LevelAdjust
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Adjusts color levels in the RGBA color space.
 
@@ -20,8 +21,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_butterfly.png
-        \li \image LevelAdjust_butterfly.png
+        \li \image Original_butterfly.png {Colorful butterfly graphic}
+        \li \image LevelAdjust_butterfly.png {Butterfly with level adjustment applied}
     \endtable
 
     \section1 Example
@@ -63,9 +64,9 @@ Item {
         \li
         \li
         \row
-            \li \image LevelAdjust_gamma1.png
-            \li \image LevelAdjust_gamma2.png
-            \li \image LevelAdjust_gamma3.png
+            \li \image LevelAdjust_gamma1.png {Butterfly at default gamma}
+            \li \image LevelAdjust_gamma2.png {Butterfly with modified RGB gamma}
+            \li \image LevelAdjust_gamma3.png {Butterfly with extreme gamma adjustment}
         \row
             \li \b { gamma: Qt.vector3d(1.0, 1.0, 1.0) }
             \li \b { gamma: Qt.vector3d(1.0, 0.4, 2.0) }
@@ -94,9 +95,9 @@ Item {
             \li
             \li
         \row
-            \li \image LevelAdjust_default_curve.png
-            \li \image LevelAdjust_gamma2_curve.png
-            \li \image LevelAdjust_gamma3_curve.png
+            \li \image LevelAdjust_default_curve.png {Default luminance curve}
+            \li \image LevelAdjust_gamma2_curve.png {Modified gamma luminance curve}
+            \li \image LevelAdjust_gamma3_curve.png {Extreme gamma luminance curve}
         \row
             \li X-axis: pixel original luminance
             \li
@@ -124,9 +125,9 @@ Item {
         \li
         \li
         \row
-            \li \image LevelAdjust_minimumInput1.png
-            \li \image LevelAdjust_minimumInput2.png
-            \li \image LevelAdjust_minimumInput3.png
+            \li \image LevelAdjust_minimumInput1.png {No minimum input adjustment}
+            \li \image LevelAdjust_minimumInput2.png {Low minimum input threshold}
+            \li \image LevelAdjust_minimumInput3.png {High minimum input threshold}
         \row
             \li \b { minimumInput: #00000000 }
             \li \b { minimumInput: #00000040 }
@@ -155,9 +156,11 @@ Item {
             \li
             \li
         \row
-            \li \image LevelAdjust_default_curve.png
+            \li \image LevelAdjust_default_curve.png {Default luminance curve}
             \li \image LevelAdjust_minimumInput2_curve.png
+                   {Minimum input luminance curve}
             \li \image LevelAdjust_minimumInput3_curve.png
+                   {High minimum input luminance curve}
         \row
             \li X-axis: pixel original luminance
             \li
@@ -186,9 +189,9 @@ Item {
         \li
         \li
         \row
-            \li \image LevelAdjust_maximumInput1.png
-            \li \image LevelAdjust_maximumInput2.png
-            \li \image LevelAdjust_maximumInput3.png
+            \li \image LevelAdjust_maximumInput1.png {No maximum input adjustment}
+            \li \image LevelAdjust_maximumInput2.png {Medium maximum input threshold}
+            \li \image LevelAdjust_maximumInput3.png {Low maximum input threshold}
         \row
             \li \b { maximumInput: #FFFFFFFF }
             \li \b { maximumInput: #FFFFFF80 }
@@ -217,9 +220,11 @@ Item {
             \li
             \li
         \row
-            \li \image LevelAdjust_default_curve.png
+            \li \image LevelAdjust_default_curve.png {Default luminance curve}
             \li \image LevelAdjust_maximumInput2_curve.png
+                   {Medium maximum input luminance curve}
             \li \image LevelAdjust_maximumInput3_curve.png
+                   {Low maximum input luminance curve}
         \row
             \li X-axis: pixel original luminance
             \li
@@ -246,9 +251,9 @@ Item {
         \li
         \li
         \row
-            \li \image LevelAdjust_minimumOutput1.png
-            \li \image LevelAdjust_minimumOutput2.png
-            \li \image LevelAdjust_minimumOutput3.png
+            \li \image LevelAdjust_minimumOutput1.png {No minimum output adjustment}
+            \li \image LevelAdjust_minimumOutput2.png {Medium minimum output level}
+            \li \image LevelAdjust_minimumOutput3.png {High minimum output level}
         \row
             \li \b { minimumOutput: #00000000 }
             \li \b { minimumOutput: #00000070 }
@@ -277,9 +282,11 @@ Item {
             \li
             \li
         \row
-            \li \image LevelAdjust_default_curve.png
+            \li \image LevelAdjust_default_curve.png {Default luminance curve}
             \li \image LevelAdjust_minimumOutput2_curve.png
+                   {Minimum output luminance curve}
             \li \image LevelAdjust_minimumOutput3_curve.png
+                   {High minimum output luminance curve}
         \row
             \li X-axis: pixel original luminance
             \li
@@ -306,9 +313,9 @@ Item {
         \li
         \li
         \row
-            \li \image LevelAdjust_maximumOutput1.png
-            \li \image LevelAdjust_maximumOutput2.png
-            \li \image LevelAdjust_maximumOutput3.png
+            \li \image LevelAdjust_maximumOutput1.png {No maximum output adjustment}
+            \li \image LevelAdjust_maximumOutput2.png {Medium maximum output level}
+            \li \image LevelAdjust_maximumOutput3.png {Low maximum output level}
         \row
             \li \b { maximumOutput: #FFFFFFFF }
             \li \b { maximumOutput: #FFFFFF80 }
@@ -337,9 +344,11 @@ Item {
             \li
             \li
         \row
-            \li \image LevelAdjust_default_curve.png
+            \li \image LevelAdjust_default_curve.png {Default luminance curve}
             \li \image LevelAdjust_maximumOutput2_curve.png
+                   {Medium maximum output luminance curve}
             \li \image LevelAdjust_maximumOutput3_curve.png
+                   {Low maximum output luminance curve}
         \row
             \li X-axis: pixel original luminance
             \li

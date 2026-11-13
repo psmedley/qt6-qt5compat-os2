@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype Displace
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-distortion
     \brief Moves the pixels of the source item according to the given
     displacement map.
@@ -19,9 +20,9 @@ import Qt5Compat.GraphicalEffects.private
         \li DisplacementSource
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image Displace_map.png
-        \li \image Displace_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image Displace_map.png {Displacement map with red and green gradients}
+        \li \image Displace_bug.png {Beetle with displacement effect applied}
     \endtable
 
     \section1 Example
@@ -89,9 +90,9 @@ Item {
         \li
         \li
         \row
-            \li \image Displace_displacement1.png
-            \li \image Displace_displacement2.png
-            \li \image Displace_displacement3.png
+            \li \image Displace_displacement1.png {Beetle displaced inward}
+            \li \image Displace_displacement2.png {Beetle with no displacement}
+            \li \image Displace_displacement3.png {Beetle displaced outward}
         \row
             \li \b { displacement: -0.2 }
             \li \b { displacement: 0.0 }

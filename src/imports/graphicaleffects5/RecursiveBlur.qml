@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype RecursiveBlur
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-blur
     \brief Blurs repeatedly, providing a strong blur effect.
 
@@ -24,8 +25,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image RecursiveBlur_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image RecursiveBlur_bug.png {Beetle with recursive blur effect}
     \endtable
 
     \note This effect is available when running with OpenGL.
@@ -66,9 +67,9 @@ Item {
         \li
         \li
         \row
-            \li \image RecursiveBlur_radius1.png
-            \li \image RecursiveBlur_radius2.png
-            \li \image RecursiveBlur_radius3.png
+            \li \image RecursiveBlur_radius1.png {Beetle with radius 2.5}
+            \li \image RecursiveBlur_radius2.png {Beetle with radius 4.5}
+            \li \image RecursiveBlur_radius3.png {Beetle with radius 7.5}
         \row
             \li \b { radius: 2.5 }
             \li \b { radius: 4.5 }
@@ -79,6 +80,8 @@ Item {
             \li \l loops: 20
         \endtable
 
+        \note The \c radius property is used to calculate the size of the effect's offscreen buffer.
+        Higher values will cause larger memory allocations.
     */
     property real radius: 0.0
 
@@ -121,8 +124,8 @@ Item {
         \li
         \li
         \row
-            \li \image RecursiveBlur_transparentBorder1.png
-            \li \image RecursiveBlur_transparentBorder2.png
+            \li \image RecursiveBlur_transparentBorder1.png {Blur with transparent border disabled}
+            \li \image RecursiveBlur_transparentBorder2.png {Blur with transparent border enabled}
         \row
             \li \b { transparentBorder: false }
             \li \b { transparentBorder: true }
@@ -157,9 +160,9 @@ Item {
         \li
         \li
         \row
-            \li \image RecursiveBlur_loops1.png
-            \li \image RecursiveBlur_loops2.png
-            \li \image RecursiveBlur_loops3.png
+            \li \image RecursiveBlur_loops1.png {Beetle with 4 blur loops}
+            \li \image RecursiveBlur_loops2.png {Beetle with 20 blur loops}
+            \li \image RecursiveBlur_loops3.png {Beetle with 70 blur loops}
         \row
             \li \b { loops: 4 }
             \li \b { loops: 20 }

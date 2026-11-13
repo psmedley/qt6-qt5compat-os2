@@ -29,7 +29,7 @@ qt_internal_add_test(tst_qt5compat_json
 #### Keys ignored in scope 2:.:.:json.pro:NOT ANDROID:
 # TESTDATA = "bom.json" "test.json" "test.bjson" "test3.json" "test2.json"
 
-if(ANDROID)
+if(ANDROID OR QT_FORCE_BUILTIN_TESTDATA)
     # Resources:
     set(json_resource_files
         "bom.json"
@@ -39,6 +39,11 @@ if(ANDROID)
         "test3.json"
     )
 
+    file(GLOB invalid_binary_data_files
+        RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+        "invalidBinaryData/*.bjson"
+    )
+
 # special case begin
     qt_internal_add_resource(tst_qt5compat_json "json"
 # special case end
@@ -46,6 +51,7 @@ if(ANDROID)
             "/"
         FILES
             ${json_resource_files}
+            ${invalid_binary_data_files}
     )
 endif()
 

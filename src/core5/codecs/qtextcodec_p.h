@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:trivial-impl-only
 
 #ifndef QTEXTCODEC_P_H
 #define QTEXTCODEC_P_H
@@ -31,7 +32,7 @@ QT_BEGIN_NAMESPACE
 
 #if QT_CONFIG(textcodec)
 
-#if defined(Q_OS_MAC) || defined(Q_OS_ANDROID) || defined(Q_OS_QNX) || defined(Q_OS_WASM)
+#if defined(Q_OS_APPLE) || defined(Q_OS_ANDROID) || defined(Q_OS_QNX) || defined(Q_OS_WASM)
 #define QT_LOCALE_IS_UTF8
 #endif
 

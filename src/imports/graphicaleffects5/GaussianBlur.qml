@@ -1,6 +1,7 @@
 // Copyright (C) 2017 The Qt Company Ltd.
 // Copyright (C) 2017 Jolla Ltd, author: <gunnar.sletta@jollamobile.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import QtQuick.Window
@@ -10,9 +11,13 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype GaussianBlur
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-blur
     \brief Applies a higher quality blur effect.
+
+    \note The MultiEffect component provides a blur effect with some performance
+    advantages. For new code, it should be considered as an alternative to using Qt Graphical
+    Effects.
 
     GaussianBlur effect softens the image by blurring it with an algorithm that
     uses the Gaussian function to calculate the effect. The effect produces
@@ -30,8 +35,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image GaussianBlur_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image GaussianBlur_bug.png {Beetle with gaussian blur applied}
     \endtable
 
     \note This effect is available when running with OpenGL.
@@ -81,9 +86,9 @@ Item {
         \li
         \li
         \row
-            \li \image GaussianBlur_radius1.png
-            \li \image GaussianBlur_radius2.png
-            \li \image GaussianBlur_radius3.png
+            \li \image GaussianBlur_radius1.png {Beetle with no blur}
+            \li \image GaussianBlur_radius2.png {Beetle with moderate blur}
+            \li \image GaussianBlur_radius3.png {Beetle with heavy blur}
         \row
             \li \b { radius: 0 }
             \li \b { radius: 4 }
@@ -98,6 +103,8 @@ Item {
             \li \l deviation: 3
         \endtable
 
+        \note The \c radius property is used to calculate the size of the effect's offscreen buffer.
+        Higher values will cause larger memory allocations.
     */
     property real radius: Math.floor(samples / 2);
 
@@ -127,7 +134,7 @@ Item {
         too small deviation values makes the effect insignificant for the pixels
         near the radius.
 
-        \image GaussianBlur_deviation_graph.png
+        \image GaussianBlur_deviation_graph.png {Gaussian function curves with different deviation values}
         \caption The image above shows the Gaussian function with two different
         deviation values, yellow (1) and cyan (2.7). The y-axis shows the
         weights, the x-axis shows the pixel distance.
@@ -144,9 +151,9 @@ Item {
         \li
         \li
         \row
-            \li \image GaussianBlur_deviation1.png
-            \li \image GaussianBlur_deviation2.png
-            \li \image GaussianBlur_deviation3.png
+            \li \image GaussianBlur_deviation1.png {Low deviation blur}
+            \li \image GaussianBlur_deviation2.png {Medium deviation blur}
+            \li \image GaussianBlur_deviation3.png {High deviation blur}
         \row
             \li \b { deviation: 1 }
             \li \b { deviation: 2 }
@@ -187,8 +194,8 @@ Item {
         \li
         \li
         \row
-            \li \image GaussianBlur_transparentBorder1.png
-            \li \image GaussianBlur_transparentBorder2.png
+            \li \image GaussianBlur_transparentBorder1.png {Blur with edge clamping}
+            \li \image GaussianBlur_transparentBorder2.png {Blur with transparent edges}
         \row
             \li \b { transparentBorder: false }
             \li \b { transparentBorder: true }

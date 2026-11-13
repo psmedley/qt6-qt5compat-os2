@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:data-parser
 
 #include "qbinaryjsonarray_p.h"
 #include "qbinaryjson_p.h"
@@ -17,7 +18,7 @@ QBinaryJsonArray::~QBinaryJsonArray()
 QBinaryJsonArray QBinaryJsonArray::fromJsonArray(const QJsonArray &array)
 {
     QBinaryJsonArray binary;
-    for (const QJsonValue value : array)
+    for (const QJsonValue &value : array)
         binary.append(QBinaryJsonValue::fromJsonValue(value));
     if (binary.d) // We want to compact it as it is a root item now
         binary.d->compactionCounter++;
@@ -27,15 +28,14 @@ QBinaryJsonArray QBinaryJsonArray::fromJsonArray(const QJsonArray &array)
 
 void QBinaryJsonArray::append(const QBinaryJsonValue &value)
 {
-    const uint i = a ? a->length() : 0;
-
     bool compressed;
     uint valueSize = QBinaryJsonPrivate::Value::requiredStorage(value, &compressed);
 
     if (!detach(valueSize + sizeof(QBinaryJsonPrivate::Value)))
         return;
 
-    if (!a->length())
+    const uint i = a->length();
+    if (!i)
         a->tableOffset = sizeof(QBinaryJsonPrivate::Array);
 
     uint valueOffset = a->reserveSpace(valueSize, i, 1, false);
@@ -79,10 +79,12 @@ bool QBinaryJsonArray::detach(uint reserve)
     QBinaryJsonPrivate::MutableData *x = d->clone(a, reserve);
     if (!x)
         return false;
-    x->ref.ref();
-    if (!d->ref.deref())
-        delete d;
-    d = x;
+    if (x != d) {
+        x->ref.ref();
+        if (!d->ref.deref())
+            delete d;
+        d = x;
+    }
     a = static_cast<QBinaryJsonPrivate::Array *>(d->header->root());
     return true;
 }

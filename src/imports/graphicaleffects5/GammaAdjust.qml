@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
 
@@ -7,7 +8,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype GammaAdjust
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Alters the luminance of the source item.
 
@@ -21,8 +22,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image GammaAdjust_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image GammaAdjust_bug.png {Beetle with gamma adjustment applied}
     \endtable
 
     \section1 Example
@@ -63,9 +64,9 @@ luminance = pow(original_luminance, 1.0 / gamma); // The luminance is assumed to
         \li
         \li
         \row
-            \li \image GammaAdjust_gamma1.png
-            \li \image GammaAdjust_gamma2.png
-            \li \image GammaAdjust_gamma3.png
+            \li \image GammaAdjust_gamma1.png {Darkened beetle, gamma 0.5}
+            \li \image GammaAdjust_gamma2.png {Beetle at normal gamma}
+            \li \image GammaAdjust_gamma3.png {Brightened beetle, gamma 2.0}
         \row
             \li \b { gamma: 0.5 }
             \li \b { gamma: 1.0 }
@@ -78,9 +79,9 @@ luminance = pow(original_luminance, 1.0 / gamma); // The luminance is assumed to
             \li
             \li
         \row
-            \li \image GammaAdjust_gamma1_graph.png
-            \li \image GammaAdjust_gamma2_graph.png
-            \li \image GammaAdjust_gamma3_graph.png
+            \li \image GammaAdjust_gamma1_graph.png {Luminance curve for gamma 0.5}
+            \li \image GammaAdjust_gamma2_graph.png {Luminance curve for gamma 1.0}
+            \li \image GammaAdjust_gamma3_graph.png {Luminance curve for gamma 2.0}
         \row
             \li Red curve: default gamma (1.0)
             \li

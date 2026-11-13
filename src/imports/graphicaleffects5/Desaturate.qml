@@ -1,5 +1,6 @@
 // Copyright (C) 2020 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 import QtQuick
 import Qt5Compat.GraphicalEffects.private
@@ -8,7 +9,7 @@ import Qt5Compat.GraphicalEffects.private
     \qmltype Desaturate
     \inqmlmodule Qt5Compat.GraphicalEffects
     \since QtGraphicalEffects 1.0
-    \inherits QtQuick2::Item
+    \inherits QtQuick::Item
     \ingroup qtgraphicaleffects-color
     \brief Reduces the saturation of the colors.
 
@@ -20,8 +21,8 @@ import Qt5Compat.GraphicalEffects.private
         \li Source
         \li Effect applied
     \row
-        \li \image Original_bug.png
-        \li \image Desaturate_bug.png
+        \li \image Original_bug.png {Black beetle on a leaf}
+        \li \image Desaturate_bug.png {Beetle with colors desaturated}
     \endtable
 
     \section1 Example
@@ -54,9 +55,9 @@ Item {
         \li
         \li
         \row
-            \li \image Desaturate_desaturation1.png
-            \li \image Desaturate_desaturation2.png
-            \li \image Desaturate_desaturation3.png
+            \li \image Desaturate_desaturation1.png {Beetle at full color}
+            \li \image Desaturate_desaturation2.png {Beetle partially desaturated}
+            \li \image Desaturate_desaturation3.png {Beetle fully desaturated to grayscale}
         \row
             \li \b { desaturation: 0.0 }
             \li \b { desaturation: 0.5 }
